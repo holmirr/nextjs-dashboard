@@ -41,7 +41,12 @@ export default function Page() {
   };
 
   const handleCancel = async () => {
-    const res = await fetch(`/api/download/cancel?id=${id}`);
+    const res = await fetch(`/api/download/`,
+      {
+        method: "POST",
+        body: JSON.stringify({ id }),
+      }
+    );
     console.log("<handleCancel>fetchの結果：", res);
     if (res.ok) {
       console.log("<handleCancel>キャンセルが成功しました。");
