@@ -1,11 +1,5 @@
 import { abortMap } from "@/app/lib/abort";
 
-export const config = {
-  runtime: 'edge',
-};
-
-
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
@@ -53,15 +47,17 @@ export async function GET(request: Request) {
         console.log("<in startReturn>setIntervalをクリアしました。");
       }
     },
-    async cancel() {
-      console.log("<in cancel>ReadableStreamのcancel()メソッドが実行されました。");
-      const controller = abortMap.get(id);
-      if (controller) {
-        console.log("<in cancel>abortMapからcontrollerを取得しました。：", JSON.stringify(controller.signal));
-        controller.abort();
-        console.log("<in cancel>abortしました。");
-      }
-    },
+    // async cancel() {
+    //   console.log("<in cancel>ReadableStreamのcancel()メソッドが実行されました。");
+    //   const controller = abortMap.get(id);
+    //   if (controller) {
+    //     console.log("<in cancel>abortMapからcontrollerを取得しました。：", JSON.stringify(controller.signal));
+    //     console.log("<in cancel>3秒待ってからabortします。");
+    //     await new Promise((resolve) => setTimeout(resolve,3000));
+    //     controller.abort();
+    //     console.log("<in cancel>abortしました。");
+    //   }
+    // },
   });
   return new Response(stream, {
     headers: {

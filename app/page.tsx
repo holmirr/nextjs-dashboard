@@ -40,8 +40,15 @@ export default function Page() {
     };
   };
 
-  const handleCancel = () => {
-    setIsDownloading(false);
+  const handleCancel = async () => {
+    const res = await fetch(`/api/download/cancel?id=${id}`);
+    console.log("<handleCancel>fetchの結果：", res);
+    if (res.ok) {
+      console.log("<handleCancel>キャンセルが成功しました。");
+      setIsDownloading(false);
+    } else {
+      console.log("<handleCancel>キャンセルが失敗しました。");
+    }
   };
 
 
